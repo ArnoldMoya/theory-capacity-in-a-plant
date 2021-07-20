@@ -5,11 +5,11 @@ library(dplyr)
 datos.produccion = read_excel("D:/datos_produccion.xlsx")
 produccion = data.frame(datos.produccion)
 # Seleccion de las filas importantes
-produccion <- produccion %>% select(AÒo,UNIDAD,Producto,NOM_PROD,FECHA,COD,HORAS,
+produccion <- produccion %>% select(A√±o,UNIDAD,Producto,NOM_PROD,FECHA,COD,HORAS,
               TON_HORA,N_COMP, Nom..Almacen) %>%
               filter(TON_HORA>0,HORAS>0) %>% 
               filter(!grepl("NO CONFORME",Nom..Almacen,fixed = TRUE))
-# Filtrado de datos v·lidos
+# Filtrado de datos v√°lidos
 # summary(produccion)
 
 # PRODUCTOS
@@ -29,12 +29,12 @@ for (i in 1:nrow(productos)){ #longitud total nrow(productos)
     nom_prod = productos$NOM_PROD[i]
     tabla_filtrada <- produccion %>% 
       filter(UNIDAD==unidad,nom_prod==NOM_PROD) #%>%
-      #filter(AÒo != 2020) #sin 2020
+      #filter(A√±o != 2020) #sin 2020
     capacidades[i] <- quantile(tabla_filtrada$TON_HORA,0.75)
     #print(capacidades[i])
   }
 }
 
 # Escribe un archivo excel con las capacidades
-write_xlsx(data.frame(capacidades),path = "D:/COMACSA/capacidades_con2020.xlsx",
+write_xlsx(data.frame(capacidades),path = "D:/capacidades_con2020.xlsx",
                   col_names = TRUE)
